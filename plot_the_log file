@@ -1,0 +1,29 @@
+import matplotlib.pyplot as plt
+import json
+
+# Read the data from the text file
+with open('data.txt', 'r') as file:
+    data = [json.loads(line.strip()) for line in file]
+
+# Extracting data
+epochs = [entry['epoch'] for entry in data]
+learning_rates = [entry['train_lr'] for entry in data]
+losses = [entry['train_loss'] for entry in data]
+
+# Plotting
+fig, ax1 = plt.subplots()
+
+ax2 = ax1.twinx()
+ax1.plot(epochs, learning_rates, 'g-', label="Learning Rate", alpha=0.6)
+ax2.plot(epochs, losses, 'b-', label="Loss", alpha=0.6)
+
+# Labels and titles
+ax1.set_xlabel('Epoch')
+ax1.set_ylabel('Learning Rate', color='g')
+ax2.set_ylabel('Loss', color='b')
+plt.title('Learning Rate and Loss vs Epoch')
+
+# Show plot
+plt.tight_layout()
+plt.show()
+
